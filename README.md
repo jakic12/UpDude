@@ -44,5 +44,8 @@ In case of misconfiguration (e.g. user sets unlock task to 20.000 steps instead 
 
 ```
 npm i
-npx react-native run-android
+npx react-native start # start metro
+npx react-native run-android # start app
 ```
+
+`npx react-native run-android` is one way to run your app - you can also run it directly from within Android Studio.
