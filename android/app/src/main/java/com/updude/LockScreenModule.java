@@ -13,6 +13,10 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ComponentName;
+import android.preference.PreferenceManager;
+import android.content.SharedPreferences;
+import android.content.Context;
+
 
 // import startActivityForResult
 import android.app.Activity;
@@ -26,6 +30,7 @@ public class LockScreenModule extends ReactContextBaseJavaModule {
   ActivityManager activityManager;
   ComponentName compName;
   ReactApplicationContext ctx;
+  SharedPreferences sharedPreferences;
   public static final int RESULT_ENABLE = 11;
 
   LockScreenModule(ReactApplicationContext context) {
@@ -38,6 +43,8 @@ public class LockScreenModule extends ReactContextBaseJavaModule {
 
     compName = new ComponentName(context, DeviceAdmin.class);
     ctx = context;
+
+    sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ctx);
   }
 
   @ReactMethod
@@ -60,6 +67,21 @@ public class LockScreenModule extends ReactContextBaseJavaModule {
   public void isAdminActive(Callback cb) {
     boolean active = deviceManger.isAdminActive(compName);
     cb.invoke(active);
+  }
+
+  @ReactMethod
+  public void setLock(boolean lock) {
+    Log.d("LockScreenModule", "enable lock screen called");
+    
+    SharedPreferences.Editor editor = sharedPreferences.edit();
+    editor.putBoolean("lock", lock);
+    editor.commit();
+  }
+
+  @ReactMethod
+  public void isLockEnabled(Callback cb) {
+    Boolean lock = sharedPreferences.getBoolean("lock", false);
+    cb.invoke(lock);
   }
 
   @ReactMethod

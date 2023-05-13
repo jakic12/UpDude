@@ -6,7 +6,8 @@ import android.util.Log;
 import android.content.Intent;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
-
+import android.preference.PreferenceManager;
+import android.content.SharedPreferences;
 
 
 public class UnlockReceiver extends BroadcastReceiver{
@@ -14,9 +15,13 @@ public class UnlockReceiver extends BroadcastReceiver{
     public void onReceive(Context context, Intent intent) {
         DevicePolicyManager deviceManger = (DevicePolicyManager) context.getSystemService(
         Context.DEVICE_POLICY_SERVICE);
-        
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        Boolean lock = sharedPreferences.getBoolean("lock", false);
+
+
         boolean active = deviceManger.isAdminActive(new ComponentName(context, DeviceAdmin.class));
-        if (active) {
+        if (active && lock) {
             deviceManger.lockNow();
         }
         // log intent

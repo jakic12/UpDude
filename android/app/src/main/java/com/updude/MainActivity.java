@@ -8,6 +8,10 @@ import android.content.IntentFilter;
 import android.content.Intent;
 import android.util.Log;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.content.SharedPreferences;
+import android.content.Context;
+
 
 public class MainActivity extends ReactActivity {
 
@@ -15,6 +19,11 @@ public class MainActivity extends ReactActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+      // create dummy contex
+      Context context = getApplicationContext();
+      SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+      sharedPreferences.edit().putBoolean("lock", false).apply();
+
       myReceiver = new UnlockReceiver();
       this.registerReceiver(myReceiver, new IntentFilter("android.intent.action.USER_PRESENT"));
       super.onCreate(savedInstanceState);
