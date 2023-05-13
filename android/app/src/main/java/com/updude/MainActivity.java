@@ -4,8 +4,22 @@ import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactActivityDelegate;
+import android.content.IntentFilter;
+import android.content.Intent;
+import android.util.Log;
+import android.os.Bundle;
 
 public class MainActivity extends ReactActivity {
+
+  public UnlockReceiver myReceiver;
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+      myReceiver = new UnlockReceiver();
+      this.registerReceiver(myReceiver, new IntentFilter("android.intent.action.USER_PRESENT"));
+      super.onCreate(savedInstanceState);
+  }
+
 
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
