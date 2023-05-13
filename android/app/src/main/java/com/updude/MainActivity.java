@@ -8,6 +8,10 @@ import android.content.IntentFilter;
 import android.content.Intent;
 import android.util.Log;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.content.SharedPreferences;
+import android.content.Context;
+
 
 import android.nfc.NfcAdapter;
 
@@ -25,11 +29,10 @@ public class MainActivity extends ReactActivity {
       UnlockReceiver unlockRec = new UnlockReceiver();
       this.registerReceiver(unlockRec, new IntentFilter("android.intent.action.USER_PRESENT"));
 
-      //NfcReceiver nfcRec = new NfcReceiver();
-      //this.registerReceiver(nfcRec, new IntentFilter("android.nfc.action.TAG_DISCOVERED"));
-      //this.registerReceiver(nfcRec, new IntentFilter("android.nfc.action.NDEF_DISCOVERED"));
-      //this.registerReceiver(nfcRec, new IntentFilter("android.nfc.action.TECH_DISCOVERED"));
-
+      // create dummy contex
+      Context context = getApplicationContext();
+      SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+      sharedPreferences.edit().putBoolean("lock", false).apply();
       super.onCreate(savedInstanceState);
   }
 

