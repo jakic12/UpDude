@@ -11,7 +11,7 @@ import android.os.Bundle;
 
 import android.nfc.NfcAdapter;
 
-public class MainActivity extends ReactActivity {
+public class NfcActivity extends ReactActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -22,14 +22,6 @@ public class MainActivity extends ReactActivity {
         NfcAdapter.ACTION_TECH_DISCOVERED.equals(startIntent.getAction()))) {
         Log.d("UpDudeNFC", "NFC intent recieved "+startIntent.getAction());
     }
-      UnlockReceiver unlockRec = new UnlockReceiver();
-      this.registerReceiver(unlockRec, new IntentFilter("android.intent.action.USER_PRESENT"));
-
-      //NfcReceiver nfcRec = new NfcReceiver();
-      //this.registerReceiver(nfcRec, new IntentFilter("android.nfc.action.TAG_DISCOVERED"));
-      //this.registerReceiver(nfcRec, new IntentFilter("android.nfc.action.NDEF_DISCOVERED"));
-      //this.registerReceiver(nfcRec, new IntentFilter("android.nfc.action.TECH_DISCOVERED"));
-
       super.onCreate(savedInstanceState);
   }
 
