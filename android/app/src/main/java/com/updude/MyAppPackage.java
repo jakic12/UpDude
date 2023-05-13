@@ -22,6 +22,7 @@ public class MyAppPackage implements ReactPackage {
     List<NativeModule> modules = new ArrayList<>();
 
     modules.add(new LockScreenModule(reactContext));
+    modules.add(new Pedometer(reactContext));
 
     return modules;
   }

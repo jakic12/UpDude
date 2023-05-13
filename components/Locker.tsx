@@ -1,6 +1,6 @@
 import React from 'react';
 import {Alert, Text, TouchableOpacity, View, NativeModules} from 'react-native';
-const {LockScreenModule} = NativeModules;
+const {LockScreenModule, Pedometer} = NativeModules;
 
 function CustomButton({title, onPress}: any): JSX.Element {
   return (
@@ -19,8 +19,9 @@ function CustomButton({title, onPress}: any): JSX.Element {
 }
 
 function onPress() {
-  Alert.alert('You tapped the button! Locking screen...');
-  LockScreenModule.lockScreen();
+  //Alert.alert('You tapped the button! Locking screen...');
+  //LockScreenModule.lockScreen();
+  Pedometer.getStepCount((steps :any) => Alert.alert(steps));
 }
 
 // function to lock the screen
