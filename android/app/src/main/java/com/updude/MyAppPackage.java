@@ -20,11 +20,12 @@ public class MyAppPackage implements ReactPackage {
   @Override
   public List<NativeModule> createNativeModules(
       ReactApplicationContext reactContext) {
-    List<NativeModule> modules = new ArrayList<>();
+      List<NativeModule> modules = new ArrayList<>();
 
-    modules.add(new LockScreenModule(reactContext));
+      modules.add(new LockScreenModule(reactContext));
+      modules.add(new TagStore(reactContext));
 
-    return modules;
+      return modules;
   }
 
 }
