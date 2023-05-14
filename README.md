@@ -7,17 +7,16 @@ Here are some example use cases:
  * restrict phone usage before getting out of bed, or before departing to work/school
  * user must go for a walk before using phone in the morning
  * assist with evening procrastination (lock the phone at a specified hour, unlockable in the morning)
- * ensure user brushes teeth for 3 minutes every morning
+ * ensure user brushes teeth for 3 minutes every morning (must leave phone on the tag for 3 minutes)
 
 The following tasks can be used to unlock:
  * scanning a registered NFC tag
  * reaching a specified pedometer count
- * arriving in range of a registered bluetooth beacon
 
 
 ## Innovation
 
-Existing solutions to morning procrastination mainly consist of alarm clocks that don't stop ringing until you get up, eg. an alarm clock that runs and hides, or an app that requires you to solve math problems.
+Existing solutions to morning procrastination mainly consist of alarm clocks that don't stop ringing until you get up, e.g. an alarm clock that runs and hides, or an app that requires you to solve math problems.
 
 ![running alarm clock](demo/clocky.jpg)
 
@@ -35,7 +34,7 @@ As a company, we could sell official BLE beacons or NFC tags with e.g. doorframe
 
 Our rich configuration model allows for a wide arrangement of use cases, limited only by the user's imagination. We developed a configuration generator powered by AI technology, which aids in finding inventive uses for UpDude.
 
-UpDude also supports Mobile Actions (works with Bixby, Google assistant, Siri, etc.), which provides a rich environment of if-this-then-that rules, which further increase the utility power of our application.
+UpDude also supports Mobile Actions (confirmed to work with Bixby, but should work with others too), which provides a rich environment of if-this-then-that rules, which further increase the utility power of our application.
 
 ![bixby routines](demo/bixby.png)
 
