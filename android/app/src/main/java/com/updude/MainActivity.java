@@ -45,17 +45,13 @@ public class MainActivity extends ReactActivity {
     super.onCreate(savedInstanceState);
   }
 
-  public static void lock(String notification) {
+  public static void lock(Context ctx, String notification) {
     MainActivity.lock = true;
-
-    Context ctx = getApplicationContext();
     NotifManager.startNotif(ctx, notification);
   }
 
-  public static void unlock() {
+  public static void unlock(Context ctx) {
     MainActivity.lock = false;
-
-    Context ctx = getApplicationContext();
     NotifManager.endNotif(ctx);
   }
 

@@ -27,7 +27,7 @@ public class NfcActivity extends ReactActivity {
 
       ts = new TagStore(this);
       if (ts.isTagRegistered(id)) {
-        MainActivity.unlock();
+        MainActivity.unlock(getApplicationContext());
       }
 
       MainActivity.lastScanTime = System.currentTimeMillis();

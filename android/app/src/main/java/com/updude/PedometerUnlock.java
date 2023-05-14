@@ -68,7 +68,7 @@ public class PedometerUnlock extends ReactContextBaseJavaModule {
             currentStepCount = (int) event.values[0];
 
             if (currentStepCount - initialStepCount >= target) {
-                MainActivity.unlock();
+                MainActivity.unlock(getApplicationContext());
             }
         }
 
