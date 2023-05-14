@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">UpDude</string>
     <string name="app_description">Basically ransomware</string>
+    <string name="lock_shortcut_short_label">Activate Lock</string>
+    <string name="lock_shortcut_long_label">Activate Lock</string>
+    <string name="lock_shortcut_disabled_message">Lock not available</string>
+    <string name="unlock_shortcut_short_label">Disable Lock</string>
+    <string name="unlock_shortcut_long_label">Disable Lock</string>
+    <string name="unlock_shortcut_disabled_message">Lock not available</string>
 </resources>

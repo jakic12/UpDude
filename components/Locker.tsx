@@ -1,5 +1,5 @@
 import React from 'react';
-import { NativeModules, Text, TouchableOpacity, View } from 'react-native';
+import {NativeModules, Text, TouchableOpacity, View} from 'react-native';
 const {LockScreenModule} = NativeModules;
 
 function CustomButton({title, onPress}: any): JSX.Element {
@@ -42,7 +42,11 @@ function Locker(): JSX.Element {
 
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      {!isLocked? <CustomButton title="Enable ransomware" onPress={onPress} /> : <Text>Ur fucked ;)</Text>}
+      {!isLocked ? (
+        <CustomButton title="Enable ransomware" onPress={onPress} />
+      ) : (
+        <Text>Ur fucked ;)</Text>
+      )}
     </View>
   );
 }

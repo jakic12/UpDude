@@ -1,0 +1,28 @@
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+  <shortcut
+    android:shortcutId="unlock"
+    android:enabled="true"
+    android:shortcutShortLabel="@string/unlock_shortcut_short_label"
+    android:shortcutLongLabel="@string/unlock_shortcut_long_label"
+    android:shortcutDisabledMessage="@string/unlock_shortcut_disabled_message">
+    
+    <category android:name="android.shortcut.conversation" />
+    <intent
+        android:action="android.intent.action.VIEW"
+        android:targetPackage="com.updude"
+        android:targetClass="com.updude.ShortcutUnlock" />
+  </shortcut>
+  <shortcut
+    android:shortcutId="lock"
+    android:enabled="true"
+    android:shortcutShortLabel="@string/lock_shortcut_short_label"
+    android:shortcutLongLabel="@string/lock_shortcut_long_label"
+    android:shortcutDisabledMessage="@string/lock_shortcut_disabled_message">
+    
+    <category android:name="android.shortcut.conversation" />
+    <intent
+        android:action="android.intent.action.VIEW"
+        android:targetPackage="com.updude"
+        android:targetClass="com.updude.ShortcutLock" />
+  </shortcut>
+</shortcuts>
