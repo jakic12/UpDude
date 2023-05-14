@@ -69,6 +69,12 @@ public class TagStore extends ReactContextBaseJavaModule {
         return;
     }
 
+    @ReactMethod
+    public void GetMaping(Callback cb) {
+        cb.invoke(getTagMap());
+        return;
+    }
+
     public HashMap<String, String> getTagMap() {
         String encoded = sharedPreferences.getString("nfc_tags", "");
         String[] tags = encoded.split(",");
