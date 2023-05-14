@@ -27,7 +27,7 @@ public class NfcActivity extends ReactActivity {
 
       ts = new TagStore(this);
       if (ts.isTagRegistered(id)) {
-        MainActivity.lock = false;
+        MainActivity.unlock();
       }
 
       MainActivity.lastScanTime = System.currentTimeMillis();
@@ -36,7 +36,7 @@ public class NfcActivity extends ReactActivity {
     super.onCreate(savedInstanceState);
     finish();
   }
-  
+
   /**
    * Returns the name of the main component registered from JavaScript. This is
    * used to schedule

@@ -22,7 +22,7 @@ function CustomButton({title, onPress}: any): JSX.Element {
 
 function onPress() {
   //Alert.alert('You tapped the button! Locking screen...');
-  LockScreenModule.setLock(true);
+  LockScreenModule.lock("Get locked lol");
 }
 
 function enableAdmin() {

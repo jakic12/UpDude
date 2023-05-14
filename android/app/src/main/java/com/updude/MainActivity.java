@@ -45,6 +45,20 @@ public class MainActivity extends ReactActivity {
     super.onCreate(savedInstanceState);
   }
 
+  public static void lock(String notification) {
+    MainActivity.lock = true;
+
+    Context ctx = getApplicationContext();
+    NotifManager.startNotif(ctx, notification);
+  }
+
+  public static void unlock() {
+    MainActivity.lock = false;
+
+    Context ctx = getApplicationContext();
+    NotifManager.endNotif(ctx);
+  }
+
   /**
    * Returns the name of the main component registered from JavaScript. This is
    * used to schedule

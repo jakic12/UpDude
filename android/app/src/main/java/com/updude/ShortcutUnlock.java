@@ -17,10 +17,7 @@ import android.nfc.NfcAdapter;
 public class ShortcutUnlock extends ReactActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    MainActivity.lock = false;
-    
-    Context ctx = getApplicationContext();
-    NotifManager.endNotif(ctx);
+    MainActivity.unlock();
 
     super.onCreate(savedInstanceState);
     finish();

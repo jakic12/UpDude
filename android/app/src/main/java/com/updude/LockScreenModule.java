@@ -56,9 +56,9 @@ public class LockScreenModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void setLock(boolean lock) {
+  public void lock(String message) {
     Log.d("LockScreenModule", "enable lock screen called");
-    MainActivity.lock = lock;
+    MainActivity.lock(message);
   }
 
   @ReactMethod
