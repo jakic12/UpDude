@@ -1,4 +1,4 @@
-package com.updude; // replace your-app-name with your app’s name
+package com.updude;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
@@ -24,6 +24,7 @@ public class MyAppPackage implements ReactPackage {
 
       modules.add(new LockScreenModule(reactContext));
       modules.add(new TagStore(reactContext));
+      modules.add(new NfcModule(reactContext));
 
       return modules;
   }
