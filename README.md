@@ -1,4 +1,4 @@
-# UpDude
+![banner](media/banner_dark.png)
 
 UpDude is an innovative productivity tool that locks your phone until you complete a certain task.
 
