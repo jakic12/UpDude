@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.HashMap;
 import android.app.admin.DeviceAdminReceiver;
 import android.app.admin.DevicePolicyManager;
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ComponentName;
@@ -17,8 +16,6 @@ import android.preference.PreferenceManager;
 import android.content.SharedPreferences;
 import android.content.Context;
 
-
-// import startActivityForResult
 import android.app.Activity;
 
 import android.os.Bundle;
@@ -27,10 +24,7 @@ import com.facebook.react.bridge.Callback;
 
 public class LockScreenModule extends ReactContextBaseJavaModule {
   DevicePolicyManager deviceManger;
-  ActivityManager activityManager;
   ComponentName compName;
-  ReactApplicationContext ctx;
-  SharedPreferences sharedPreferences;
   public static final int RESULT_ENABLE = 11;
 
   LockScreenModule(ReactApplicationContext context) {
@@ -38,13 +32,8 @@ public class LockScreenModule extends ReactContextBaseJavaModule {
 
     deviceManger = (DevicePolicyManager) context.getSystemService(
         Context.DEVICE_POLICY_SERVICE);
-    activityManager = (ActivityManager) context.getSystemService(
-        Context.ACTIVITY_SERVICE);
 
     compName = new ComponentName(context, DeviceAdmin.class);
-    ctx = context;
-
-    sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ctx);
   }
 
   @ReactMethod
@@ -53,9 +42,7 @@ public class LockScreenModule extends ReactContextBaseJavaModule {
     Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
     intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, compName);
     intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "You should enable the app!");
-    // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     getReactApplicationContext().startActivityForResult(intent, RESULT_ENABLE, Bundle.EMPTY);
-    // ctx.startActivity(intent);
   }
 
   @Override
@@ -65,23 +52,18 @@ public class LockScreenModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void isAdminActive(Callback cb) {
-    boolean active = deviceManger.isAdminActive(compName);
-    cb.invoke(active);
+    cb.invoke(deviceManger.isAdminActive(compName));
   }
 
   @ReactMethod
   public void setLock(boolean lock) {
     Log.d("LockScreenModule", "enable lock screen called");
-    
-    SharedPreferences.Editor editor = sharedPreferences.edit();
-    editor.putBoolean("lock", lock);
-    editor.commit();
+    MainActivity.lock = lock;
   }
 
   @ReactMethod
   public void isLockEnabled(Callback cb) {
-    Boolean lock = sharedPreferences.getBoolean("lock", false);
-    cb.invoke(lock);
+    cb.invoke(MainActivity.lock);
   }
 
   @ReactMethod

@@ -9,33 +9,29 @@ import android.content.ComponentName;
 import android.preference.PreferenceManager;
 import android.content.SharedPreferences;
 
-// i need getApplicationContext
 import android.app.Activity;
 import android.os.Bundle;
 
 public class UnlockReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        DevicePolicyManager deviceManger = (DevicePolicyManager) context.getSystemService(
-                Context.DEVICE_POLICY_SERVICE);
+        DevicePolicyManager deviceManger = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(500); // might need to adjust timeout due to race condition
 
-        // wait for 5 seconds
-        try {
-            Thread.sleep(0);
-            // get application context after 5 seconds
-            SharedPreferences sharedPreferences = PreferenceManager
-                    .getDefaultSharedPreferences(context);
-            Boolean lock = sharedPreferences.getBoolean("lock", false);
-
-            boolean active = deviceManger.isAdminActive(new ComponentName(context, DeviceAdmin.class));
-            if (active && lock) {
-                deviceManger.lockNow();
+                    boolean active = deviceManger.isAdminActive(new ComponentName(context, DeviceAdmin.class));
+                    if (active && MainActivity.lock) {
+                        deviceManger.lockNow();
+                    }
+                    Log.d("UpDudeUnlock", "Intent recieved " + intent.getAction());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-            // log intent
-            Log.d("UpDudeUnlock", "Intent recieved " + intent.getAction());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        };
+        new Thread(r).start();
     }
-
 }

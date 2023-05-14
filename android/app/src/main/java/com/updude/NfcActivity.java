@@ -18,14 +18,11 @@ public class NfcActivity extends ReactActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     Intent startIntent = getIntent();
-    Log.d("UpDudeNFC", "NNNNNNNNNN intent " + startIntent.getAction());
     if ((startIntent != null) &&
         (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(startIntent.getAction()) ||
             NfcAdapter.ACTION_TECH_DISCOVERED.equals(startIntent.getAction()))) {
       Log.d("UpDudeNFC", "NFC intent recieved " + startIntent.getAction());
-      SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
-      editor.putBoolean("lock", false);
-      editor.commit();
+      MainActivity.lock = false;
     }
     super.onCreate(savedInstanceState);
     finish();

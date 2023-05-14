@@ -16,23 +16,13 @@ import android.content.Context;
 import android.nfc.NfcAdapter;
 
 public class MainActivity extends ReactActivity {
+  public static boolean lock = false;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    Intent startIntent = getIntent();
-    Log.d("UpDudeNFC", "NNNNNNNNNN intent "+startIntent.getAction());
-    if ((startIntent != null) &&
-        (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(startIntent.getAction()) ||
-        NfcAdapter.ACTION_TECH_DISCOVERED.equals(startIntent.getAction()))) {
-        Log.d("UpDudeNFC", "NFC intent recieved "+startIntent.getAction());
-    }
       UnlockReceiver unlockRec = new UnlockReceiver();
       this.registerReceiver(unlockRec, new IntentFilter("android.intent.action.USER_PRESENT"));
 
-      // create dummy contex
-      Context context = getApplicationContext();
-      SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-      sharedPreferences.edit().putBoolean("lock", false).apply();
       super.onCreate(savedInstanceState);
   }
 
@@ -60,6 +50,6 @@ public class MainActivity extends ReactActivity {
         DefaultNewArchitectureEntryPoint.getFabricEnabled(), // fabricEnabled
         // If you opted-in for the New Architecture, we enable Concurrent React (i.e. React 18).
         DefaultNewArchitectureEntryPoint.getConcurrentReactEnabled() // concurrentRootEnabled
-        );
+    );
   }
 }
