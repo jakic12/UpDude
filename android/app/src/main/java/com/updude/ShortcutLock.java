@@ -17,9 +17,11 @@ import android.nfc.NfcAdapter;
 public class ShortcutLock extends ReactActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
+    Context ctx = getApplicationContext();
+    SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(ctx).edit();
     editor.putBoolean("lock", true);
     editor.commit();
+    NotifManager.startNotif(ctx, "Unlock using external action");
 
     super.onCreate(savedInstanceState);
     finish();

@@ -4,6 +4,8 @@
 
     <!-- NFC -->
     <uses-feature android:name="android.hardware.nfc" android:required="true" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.NFC" />
 
 
@@ -29,6 +31,8 @@
                  android:resource="@xml/shortcuts" /> 
 
         </activity>
+
+        <service android:enabled="true" android:name=".NotificationService" />
 
         <activity
         android:name=".NfcActivity"
