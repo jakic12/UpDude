@@ -24,7 +24,7 @@ public class MyAppPackage implements ReactPackage {
 
       modules.add(new LockScreenModule(reactContext));
       modules.add(new TagStore(reactContext));
-      modules.add(new NfcModule(reactContext));
+      modules.add(new NfcModule());
 
       return modules;
   }

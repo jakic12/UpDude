@@ -1,20 +1,31 @@
 import React from 'react';
-import { NativeModules, View } from 'react-native/types';
+import {NativeModules, Text, TouchableOpacity, View} from 'react-native';
 
-const { NfcModule } = NativeModules;
+function CustomButton({title, onPress}: any): JSX.Element {
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      style={{
+        backgroundColor: '#2980b9',
+        padding: 10,
+        width: 200,
+        alignItems: 'center',
+        borderRadius: 5,
+      }}>
+      <Text style={{color: 'white', fontWeight: 'bold'}}>{title}</Text>
+    </TouchableOpacity>
+  );
+}
+
+const {NfcModule} = NativeModules;
 
 function TagRegister(): JSX.Element {
-
-  const scan = () => {
-    return new Promise((resolve, reject) => {
-      resolve(NfcModule.scan());
-    });
-  };
-
+  const [nfctag, setNfctag] = React.useState();
+  const scanNfc = () => NfcModule.scan(setNfctag);
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      TODO: tle bo jakob naredu lep UI
-      tle bos kliknu in bo klicu scan
+      <CustomButton title="scan nfc" onPress={scanNfc} />
+      <Text>{nfctag}</Text>
     </View>
   );
 }

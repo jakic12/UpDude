@@ -1,6 +1,8 @@
 import React from 'react';
 import {NativeModules, Text, TouchableOpacity, View} from 'react-native';
-const {LockScreenModule} = NativeModules;
+const {LockScreenModule, NfcModule} = NativeModules;
+
+import TagRegister from './TagRegister';
 
 function CustomButton({title, onPress}: any): JSX.Element {
   return (
@@ -42,6 +44,7 @@ function Locker(): JSX.Element {
 
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <TagRegister />
       {!isLocked ? (
         <CustomButton title="Enable ransomware" onPress={onPress} />
       ) : (

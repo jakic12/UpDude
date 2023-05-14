@@ -24,7 +24,7 @@ public class NfcActivity extends ReactActivity {
       Log.d("UpDudeNFC", "NFC intent recieved " + startIntent.getAction());
       MainActivity.lock = false;
       MainActivity.lastScanTime = System.currentTimeMillis();
-      MainActivity.lastScanData = startIntent;
+      MainActivity.lastScanData = startIntent.toString();
     }
     super.onCreate(savedInstanceState);
     finish();
