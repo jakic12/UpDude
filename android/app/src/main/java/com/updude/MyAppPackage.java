@@ -23,7 +23,7 @@ public class MyAppPackage implements ReactPackage {
       List<NativeModule> modules = new ArrayList<>();
 
       modules.add(new LockScreenModule(reactContext));
-      modules.add(new TagStore(reactContext));
+      modules.add(new ReactTagStore(reactContext));
       modules.add(new NfcModule());
 
       return modules;
