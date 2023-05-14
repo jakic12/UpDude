@@ -22,6 +22,11 @@ public class TagStore extends ReactContextBaseJavaModule {
         editor = sharedPreferences.edit();
     }
 
+    public boolean isValidTag(String tagID) {
+        HashSet<String> tags = getTagNames();
+        return tags.contains(tagID);
+    }
+  
     @Override
     public String getName() {
         return "TagStore";
