@@ -27,6 +27,8 @@ public class LockScreenModule extends ReactContextBaseJavaModule {
   ComponentName compName;
   public static final int RESULT_ENABLE = 11;
 
+  Context ctx;
+
   LockScreenModule(ReactApplicationContext context) {
     super(context);
 
@@ -34,6 +36,7 @@ public class LockScreenModule extends ReactContextBaseJavaModule {
         Context.DEVICE_POLICY_SERVICE);
 
     compName = new ComponentName(context, DeviceAdmin.class);
+    ctx = context;
   }
 
   @ReactMethod
@@ -58,7 +61,7 @@ public class LockScreenModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void lock(String message) {
     Log.d("LockScreenModule", "enable lock screen called");
-    MainActivity.lock(getApplicationContext(), message);
+    MainActivity.lock(ctx, message);
   }
 
   @ReactMethod

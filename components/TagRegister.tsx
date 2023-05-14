@@ -6,30 +6,32 @@ import {
   View,
   DeviceEventEmitter,
 } from 'react-native';
-const {ReactTagStore} = NativeModules;
+const {ReactTagStore, LockScreenModule} = NativeModules;
 import Icon from 'react-native-vector-icons/Entypo';
 import IconCi from 'react-native-vector-icons/MaterialCommunityIcons';
+import IconFeather from 'react-native-vector-icons/Feather';
+import randomNames from './RandomNames';
 
 function CustomButton({title, onPress}: any): JSX.Element {
   return (
     <TouchableOpacity
       onPress={onPress}
       style={{
-        backgroundColor: '#2980b9',
+        backgroundColor: '#46d690',
         padding: 10,
         width: 200,
         alignItems: 'center',
         borderRadius: 5,
       }}>
-      <Text style={{color: 'white', fontWeight: 'bold'}}>{title}</Text>
+      <Text style={{color: 'black', fontWeight: 'bold'}}>{title}</Text>
     </TouchableOpacity>
   );
 }
 
-function IconButton({onPress, name}: any): JSX.Element {
+function IconButton({onPress, name, color, size = 30}: any): JSX.Element {
   return (
     <TouchableOpacity onPress={onPress}>
-      <Icon name={name} size={30} color="#f00" />
+      <Icon name={name} size={size} color={color} />
     </TouchableOpacity>
   );
 }
@@ -41,15 +43,33 @@ function RenderTag({name, id, onPress}: any): JSX.Element {
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'row',
+        justifyContent: 'space-between',
         width: '100%',
+        marginBottom: 10,
+        padding: 5,
       }}>
-      <IconCi name="nfc" size={60} color="white" />
-      <View>
-        <Text style={{fontSize: 25, color: 'white'}}>{name}</Text>
-        <Text>{id}</Text>
+      <View
+        style={{
+          flex: 1,
+          display: 'flex',
+          alignItems: 'center',
+          flexDirection: 'row',
+        }}>
+        <View
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            flexDirection: 'row',
+          }}>
+          <IconCi name="nfc" size={60} color="white" />
+          <View style={{paddingLeft: 15}}>
+            <Text style={{fontSize: 25, color: 'white'}}>{name}</Text>
+            <Text>{id}</Text>
+          </View>
+        </View>
       </View>
-      <View style={{padding: 20}}>
-        <IconButton onPress={onPress} name="minus" />
+      <View style={{marginRight: 25}}>
+        <IconButton onPress={onPress} color="red" name="minus" />
       </View>
     </View>
   );
@@ -79,9 +99,41 @@ function TagRegister(): JSX.Element {
       }}>
       {!waitingForTag && (
         <>
-          <Text style={{fontSize: 30, color: 'white', margin: 20}}>
-            Saved NFC tags
-          </Text>
+          <View
+            style={{
+              alignItems: 'center',
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              width: '90%',
+              margin: 20,
+              paddingBottom: 15,
+            }}>
+            <Text style={{fontSize: 30, color: 'white'}}>Saved NFC tags</Text>
+            <IconButton
+              name="plus"
+              size={50}
+              color="#46d690"
+              onPress={() => {
+                setWaitingForTag(true);
+                DeviceEventEmitter.addListener('onNfcTagScanned', e => {
+                  console.log('NATIVE_EVENT', e);
+                  if (e) {
+                    setWaitingForTag(false);
+                    ReactTagStore.SetTag(
+                      e.tag_id,
+                      randomNames[
+                        parseInt((randomNames.length * Math.random()) as any)
+                      ],
+                      () => {},
+                    );
+                    DeviceEventEmitter.removeAllListeners('onNfcTagScanned');
+                    refreshTags();
+                  }
+                });
+              }}
+            />
+          </View>
           <View>
             {Object.keys(tags).map((key, index) => (
               <RenderTag
@@ -96,21 +148,40 @@ function TagRegister(): JSX.Element {
               />
             ))}
           </View>
-          <CustomButton
-            title="Add a new nfc tag"
-            onPress={() => {
-              setWaitingForTag(true);
-              DeviceEventEmitter.addListener('onNfcTagScanned', e => {
-                console.log('NATIVE_EVENT', e);
-                if (e) {
-                  setWaitingForTag(false);
-                  ReactTagStore.SetTag(e.tag_id, Date().toString(), () => {});
-                  DeviceEventEmitter.removeAllListeners('onNfcTagScanned');
-                  refreshTags();
-                }
-              });
+          <TouchableOpacity
+            style={{
+              position: 'absolute',
+              width: '100%',
+
+              bottom: 0,
+              right: 0,
+              left: 0,
+              padding: 10,
             }}
-          />
+            onPress={() => {
+              if (Object.keys(tags).length != 0) {
+                LockScreenModule.lock(
+                  'To unlock your phone, scan one of your NFC tag',
+                );
+              }
+            }}>
+            <View
+              style={{
+                backgroundColor: '#46d690',
+                borderRadius: 10,
+                paddingLeft: 30,
+                paddingRight: 30,
+                paddingTop: 10,
+                paddingBottom: 10,
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}>
+              <Text style={{fontSize: 30, color: 'black'}}>Lock me out</Text>
+              <IconFeather name="lock" size={30} color="black" />
+            </View>
+          </TouchableOpacity>
         </>
       )}
       {waitingForTag && (
