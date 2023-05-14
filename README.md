@@ -37,6 +37,7 @@ Our rich configuration model allows for a wide arrangement of use cases, limited
 
 UpDude also supports Mobile Actions (works with Bixby, Google assistant, Siri, etc.), which provides a rich environment of if-this-then-that rules, which further increase the utility power of our application.
 
+![bixby routines](demo/bixby.png)
 
 ## Safety
 
