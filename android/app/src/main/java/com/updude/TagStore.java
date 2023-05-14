@@ -1,83 +1,53 @@
 package com.updude;
 
 import android.content.SharedPreferences;
+import android.content.Context;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
-import com.facebook.react.bridge.ReactMethod;
-
 import java.util.HashMap;
 import java.util.HashSet;
-import com.facebook.react.bridge.Callback;
 
 
-public class TagStore extends ReactContextBaseJavaModule {
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+public class TagStore {
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
-    TagStore(ReactApplicationContext context) {
-        super(context);
+    TagStore(Context context) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         editor = sharedPreferences.edit();
     }
 
-    public boolean isValidTag(String tagID) {
-        HashSet<String> tags = getTagNames();
-        return tags.contains(tagID);
-    }
-  
-    @Override
-    public String getName() {
-      return "TagStore";
-    }
-
-    @ReactMethod
-    public void SetTag(String tagID, Strind tagName, Callback cb) {
+    public Boolean SetTag(String tagID, String tagName) {
         HashSet<String> tags = getTagNames();
         if (tags.contains(tagName)) {
-            cb.invoke(false);
-            return;
+            return false;
         }
 
         HashMap<String, String> tagsMap = getTagMap();
         tagsMap.put(tagID, tagName);
         setTagMap(tagsMap);
-        cb.invoke(true);
-        return;
+        return true;
     }
 
-    @ReactMethod
-    public void GetTag(String tagID, Callback cb) {
+    public String GetTag(String tagID) {
         HashMap<String, String> tagsMap = getTagMap();
         if (tagsMap.containsKey(tagID)) {
-            cb.invoke(tagsMap.get(tagID));
-            return;
+            return tagsMap.get(tagID);
         }
-        cb.invoke("");
-        return;
+        return "";
     }
 
-    @ReactMethod
-    public void PopTag(String tagID, Callback cb) {
+    public String PopTag(String tagID) {
         String tag = GetTag(tagID);
 
         if (tag != "") {
             HashMap<String, String> tagsMap = getTagMap();
             tagsMap.remove(tagID);
             setTagMap(tagsMap);
-            cb.invoke(tag);
-            return;
+            return tag;
         }
-        cb.invoke("");
-        return;
-    }
-
-    @ReactMethod
-    public void GetMaping(Callback cb) {
-        cb.invoke(getTagMap());
-        return;
+        return "";
     }
 
     public HashMap<String, String> getTagMap() {

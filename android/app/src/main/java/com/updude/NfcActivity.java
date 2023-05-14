@@ -22,7 +22,7 @@ public class NfcActivity extends ReactActivity {
         (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(startIntent.getAction()) ||
             NfcAdapter.ACTION_TECH_DISCOVERED.equals(startIntent.getAction()))) {
 
-      String id = byteArrayToHexString(intent.getParcelableExtra(NfcAdapter.EXTRA_TAG).getId());
+      String id = byteArrayToHexString(startIntent.getParcelableExtra(NfcAdapter.EXTRA_TAG).getId());
       Log.d("UpDudeNFC", "NFC intent recieved " + startIntent.getAction() + " // " + id);
 
       ts = new TagStore(this);
@@ -36,7 +36,7 @@ public class NfcActivity extends ReactActivity {
     super.onCreate(savedInstanceState);
     finish();
   }
-
+  
   /**
    * Returns the name of the main component registered from JavaScript. This is
    * used to schedule
