@@ -18,6 +18,8 @@ The following tasks can be used to unlock:
  * scanning a registered NFC tag
  * reaching a specified pedometer count
 
+ ![screenshot](demo/screenshot.png)
+
 
 ## Innovation
 
