@@ -10,6 +10,7 @@ import com.facebook.react.bridge.ReactMethod;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import com.facebook.react.bridge.Callback;
 
 
 public class TagStore extends ReactContextBaseJavaModule {
@@ -28,38 +29,44 @@ public class TagStore extends ReactContextBaseJavaModule {
     }
   
     @ReactMethod
-    public Boolean SetTag(String tagID, String tagName) {
+    public void SetTag(String tagID, Strind tagName, Callback cb) {
         HashSet<String> tags = getTagNames();
         if (tags.contains(tagName)) {
-            return false;
+            cb.invoke(false);
+            return;
         }
 
         HashMap<String, String> tagsMap = getTagMap();
         tagsMap.put(tagID, tagName);
         setTagMap(tagsMap);
-        return true;
+        cb.invoke(true);
+        return;
     }
 
     @ReactMethod
-    public String GetTag(String tagID) {
+    public void GetTag(String tagID, Callback cb) {
         HashMap<String, String> tagsMap = getTagMap();
         if (tagsMap.containsKey(tagID)) {
-            return tagsMap.get(tagID);
+            cb.invoke(tagsMap.get(tagID));
+            return;
         }
-        return "";
+        cb.invoke("");
+        return;
     }
 
     @ReactMethod
-    public String PopTag(String tagID) {
+    public void PopTag(String tagID, Callback cb) {
         String tag = GetTag(tagID);
 
         if (tag != "") {
             HashMap<String, String> tagsMap = getTagMap();
             tagsMap.remove(tagID);
             setTagMap(tagsMap);
-            return tag;
+            cb.invoke(tag);
+            return;
         }
-        return "";
+        cb.invoke("");
+        return;
     }
 
     public HashMap<String, String> getTagMap() {
