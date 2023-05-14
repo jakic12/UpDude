@@ -22,34 +22,36 @@ public class TagStore extends ReactContextBaseJavaModule {
     }
   
     @ReactMethod
-    public Boolean SetTag(String tag, Strind tagID) {
-        HashMap<String, String> tagsMap = getTagMap();
-        if (tagsMap.containsKey(tag)) {
+    public Boolean SetTag(String tagID, Strind tagName) {
+        HashSet<String> tags = getTagNames();
+        if (tags.contains(tagName)) {
             return false;
         }
 
-        tagsMap.put(tag, tagID);
+        HashMap<String, String> tagsMap = getTagMap();
+        tagsMap.put(tagID, tagName);
         setTagMap(tagsMap);
         return true;
     }
 
     @ReactMethod
-    public String GetTag(String tag) {
+    public String GetTag(String tagID) {
         HashMap<String, String> tagsMap = getTagMap();
-        if (tagsMap.containsKey(tag)) {
-            return tagsMap.get(tag);
+        if (tagsMap.containsKey(tagID)) {
+            return tagsMap.get(tagID);
         }
         return "";
     }
 
     @ReactMethod
-    public String PopTag(String tag) {
-        HashMap<String, String> tagsMap = getTagMap();
-        if (tagsMap.containsKey(tag)) {
-            String tagID = tagsMap.get(tag);
-            tagsMap.remove(tag);
+    public String PopTag(String tagID) {
+        String tag = GetTag(tagID);
+
+        if (tag != "") {
+            HashMap<String, String> tagsMap = getTagMap();
+            tagsMap.remove(tagID);
             setTagMap(tagsMap);
-            return tagID;
+            return tag;
         }
         return "";
     }
@@ -73,5 +75,16 @@ public class TagStore extends ReactContextBaseJavaModule {
 
         editor.putString("nfc_tags", encoded);
         editor.commit();
+    }
+
+    public HashSet<String> getTagNames() {
+        String encoded = sharedPreferences.getString("nfc_tags", "");
+        String[] tags = encoded.split(",");
+        HashSet<String> tagNames = new HashSet<String>();
+        for (String tag : tags) {
+            String[] tagParts = tag.split(":");
+            tagNames.add(tagParts[1]);
+        }
+        return tagNames;
     }
 }
