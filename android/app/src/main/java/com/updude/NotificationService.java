@@ -35,7 +35,7 @@ public class NotificationService extends Service {
           .setOngoing(true)
           .setContentTitle("Your phone is locked by updude")
           .setContentText(text)
-          .setSmallIcon(R.drawable.compose_icon_foreground)
+          .setSmallIcon(R.drawable.main_icon_foreground)
           .build();
     }
 

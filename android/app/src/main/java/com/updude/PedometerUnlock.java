@@ -1,6 +1,5 @@
 package com.updude;
 
-
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -8,14 +7,13 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
 
-
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 
-public class Pedometer extends ReactContextBaseJavaModule{
+public class PedometerUnlock extends ReactContextBaseJavaModule {
     private static final String TAG = "Pedometer";
 
     private SensorManager sensorManager;
@@ -24,7 +22,7 @@ public class Pedometer extends ReactContextBaseJavaModule{
     private boolean isListening;
     private PedometerListener listener;
 
-    public Pedometer(Context context) {
+    public PedometerUnlock(Context context) {
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         initialStepCount = 0;
@@ -58,7 +56,6 @@ public class Pedometer extends ReactContextBaseJavaModule{
     public String getName() {
         return "Pedometer";
     }
-
 
     private class PedometerListener implements SensorEventListener {
         private int currentStepCount = 0;

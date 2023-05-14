@@ -3,10 +3,16 @@ package com.updude;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
+
+import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContextBaseJavaModule;
+import com.facebook.react.bridge.ReactMethod;
+
 import java.util.HashMap;
+import java.util.HashSet;
 
 
-public class TagStore extends ReactContextBaseJavaModule {  
+public class TagStore extends ReactContextBaseJavaModule {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
@@ -22,7 +28,7 @@ public class TagStore extends ReactContextBaseJavaModule {
     }
   
     @ReactMethod
-    public Boolean SetTag(String tagID, Strind tagName) {
+    public Boolean SetTag(String tagID, String tagName) {
         HashSet<String> tags = getTagNames();
         if (tags.contains(tagName)) {
             return false;
