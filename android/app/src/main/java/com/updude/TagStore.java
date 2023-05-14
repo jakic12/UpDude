@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import com.facebook.react.bridge.Callback;
 
-
 public class TagStore extends ReactContextBaseJavaModule {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -22,14 +21,14 @@ public class TagStore extends ReactContextBaseJavaModule {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         editor = sharedPreferences.edit();
     }
-  
+
     @Override
     public String getName() {
-      return "TagStore";
+        return "TagStore";
     }
-  
+
     @ReactMethod
-    public void SetTag(String tagID, Strind tagName, Callback cb) {
+    public void SetTag(String tagID, String tagName, Callback cb) {
         HashSet<String> tags = getTagNames();
         if (tags.contains(tagName)) {
             cb.invoke(false);

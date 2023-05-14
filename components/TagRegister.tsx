@@ -24,6 +24,7 @@ function TagRegister(): JSX.Element {
   const scanNfc = () => NfcModule.scan(setNfctag);
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <Text>Actions that will unlock your phone</Text>
       <CustomButton title="scan nfc" onPress={scanNfc} />
       <Text>{nfctag}</Text>
     </View>
