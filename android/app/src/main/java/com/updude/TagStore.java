@@ -18,9 +18,14 @@ public class TagStore {
         editor = sharedPreferences.edit();
     }
 
+    public boolean isTagRegistered(String tagID) {
+        HashSet<String> tags = getTagIds();
+        return tags.contains(tagID);
+    }
+
     public Boolean SetTag(String tagID, String tagName) {
-        HashSet<String> tags = getTagNames();
-        if (tags.contains(tagName)) {
+        HashSet<String> tags = getTagIds();
+        if (tags.contains(tagID)) {
             return false;
         }
 
@@ -55,6 +60,7 @@ public class TagStore {
         String[] tags = encoded.split(",");
         HashMap<String, String> tagsMap = new HashMap<String, String>();
         for (String tag : tags) {
+            if(tag.equals("")) continue;
             String[] tagParts = tag.split(":");
             tagsMap.put(tagParts[0], tagParts[1]);
         }
@@ -71,13 +77,15 @@ public class TagStore {
         editor.commit();
     }
 
-    public HashSet<String> getTagNames() {
+    public HashSet<String> getTagIds() {
         String encoded = sharedPreferences.getString("nfc_tags", "");
+        Log.d("nfc_tags", encoded);
         String[] tags = encoded.split(",");
         HashSet<String> tagNames = new HashSet<String>();
         for (String tag : tags) {
+            if(tag.equals("")) continue;
             String[] tagParts = tag.split(":");
-            tagNames.add(tagParts[1]);
+            tagNames.add(tagParts[0]);
         }
         return tagNames;
     }

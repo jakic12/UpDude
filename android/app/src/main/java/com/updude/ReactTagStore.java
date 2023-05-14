@@ -11,7 +11,8 @@ import com.facebook.react.bridge.ReactMethod;
 import java.util.HashMap;
 import java.util.HashSet;
 import com.facebook.react.bridge.Callback;
-
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.WritableNativeMap;
 
 public class ReactTagStore extends ReactContextBaseJavaModule {
     private TagStore ts;
@@ -23,12 +24,23 @@ public class ReactTagStore extends ReactContextBaseJavaModule {
 
     @Override
     public String getName() {
-      return "ReactTagStore";
+        return "ReactTagStore";
     }
 
     @ReactMethod
     public void SetTag(String tagID, String tagName, Callback cb) {
         cb.invoke(ts.SetTag(tagID, tagName));
+    }
+
+    @ReactMethod
+    public void GetMaping(Callback cb) {
+        WritableMap resultData = new WritableNativeMap();
+        HashMap<String,String> data = ts.getTagMap();
+        for(String key : data.keySet()){
+            resultData.putString(key, data.get(key));
+        }
+        cb.invoke(resultData);
+        return;
     }
 
     @ReactMethod
