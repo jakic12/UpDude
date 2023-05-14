@@ -21,6 +21,8 @@ import android.nfc.NfcAdapter;
 public class MainActivity extends ReactActivity {
   public static final String CHANNEL_ID = "default";
   public static boolean lock = false;
+  public static float lastScanTime = 0;
+  public static String lastScanData = "";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
