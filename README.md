@@ -4,15 +4,15 @@ UpDude is an innovative productivity tool that locks your phone until you comple
 
 UpDude is designed to be unobtrusitve, lightweight, easy to use and to customize, so you can tailor it to your own needs and preferences.
 Here are some example use cases:
-	- restrict phone usage before getting out of bed, or before departing to work/school
-	- user must go for a walk before using phone in the morning
-	- assist with evening procrastination (lock the phone at a specified hour, unlockable in the morning)
-	- ensure user brushes teeth for 3 minutes every morning
+ * restrict phone usage before getting out of bed, or before departing to work/school
+ * user must go for a walk before using phone in the morning
+ * assist with evening procrastination (lock the phone at a specified hour, unlockable in the morning)
+ * ensure user brushes teeth for 3 minutes every morning
 
 The following tasks can be used to unlock:
-	- scanning a registered NFC tag
-	- reaching a specified pedometer count
-	- arriving in range of a registered bluetooth beacon
+ * scanning a registered NFC tag
+ * reaching a specified pedometer count
+ * arriving in range of a registered bluetooth beacon
 
 
 ## Innovation
