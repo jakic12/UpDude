@@ -25,6 +25,7 @@ Our creative solution beats conventional techniques, because it's not annoying. 
 ## Business model
 
 As a company, we could sell official BLE beacons or NFC tags with e.g. doorframe or ceiling mounts, and restrict the app to only work with official tags. We made a sample CAD model for a toothbrush holder with an NFC dock, which can be used to enforce a 3 minute brushing session in the morning.
+![toothbrush](demo/toothbrush.png)
 
 
 ## Extensibility
