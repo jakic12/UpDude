@@ -19,10 +19,11 @@ import android.content.Context;
 import android.nfc.NfcAdapter;
 
 public class MainActivity extends ReactActivity {
-  public static final String CHANNEL_ID = "default";
   public static boolean lock = false;
   public static float lastScanTime = 0;
   public static String lastScanData = "";
+  public static UnlockType lockType = UnlockType.PEDOMETER;
+  public static String lockParam = "0";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class MainActivity extends ReactActivity {
       CharSequence name = "Default notification channel";
       String description = "For the only persistent notification";
       int importance = NotificationManager.IMPORTANCE_HIGH;
-      NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+      NotificationChannel channel = new NotificationChannel("default", name, importance);
       channel.setDescription(description);
       // Register the channel with the system; you can't change the importance
       // or other notification behaviors after this
@@ -44,6 +45,21 @@ public class MainActivity extends ReactActivity {
     }
 
     super.onCreate(savedInstanceState);
+  }
+
+  enum UnlockType { PEDOMETER, NFC, BLE }
+
+  public static void lock(UnlockType type, String param) {
+    // param is tag id or step count (will be parseInt-ed)
+    MainActivity.lockType = type;
+    MainActivity.lockParam = param;
+    MainActivity.lock = true;
+  }
+
+  public static void unlock() {
+    MainActivity.lockType = type;
+    MainActivity.lockParam = param;
+    MainActivity.lock = false;
   }
 
   /**

@@ -21,10 +21,18 @@ public class NfcActivity extends ReactActivity {
     if ((startIntent != null) &&
         (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(startIntent.getAction()) ||
             NfcAdapter.ACTION_TECH_DISCOVERED.equals(startIntent.getAction()))) {
-      Log.d("UpDudeNFC", "NFC intent recieved " + startIntent.getAction());
-      MainActivity.lock = false;
+
+      String id = byteArrayToHexString(intent.getParcelableExtra(NfcAdapter.EXTRA_TAG).getId());
+      Log.d("UpDudeNFC", "NFC intent recieved " + startIntent.getAction() + " // " + id);
+
       MainActivity.lastScanTime = System.currentTimeMillis();
-      MainActivity.lastScanData = startIntent.toString();
+      MainActivity.lastScanData = id;
+      
+      if (MainActivity.lockType == MainActivity.UnlockType.NFC) {
+        if (MainActivity.lockParam.equals(id)) {
+          MainActivity.lock = false;
+        }
+      }
     }
     super.onCreate(savedInstanceState);
     finish();
